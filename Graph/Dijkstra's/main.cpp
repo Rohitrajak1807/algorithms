@@ -18,7 +18,7 @@ struct Compare {
 
 std::vector<std::pair<int, int>> dijkstra_lazy(const std::vector<std::vector<Edge>> &graph, int start_node);
 
-void print_path(const std::vector<std::pair<int, int>> &path, int dest);
+void print_path(const std::vector<std::pair<int, int>> &path, int src, int dest);
 
 int main() {
     std::vector<std::vector<Edge>> graph(6);
@@ -31,7 +31,8 @@ int main() {
     graph[4] = {};
     graph[5].emplace_back(3, 1);
     std::vector<std::pair<int, int>> paths = dijkstra_lazy(graph, 0);
-    print_path(paths, 5);
+//    this is a single source shortest path algorithm, so path must also start from the origin of search
+    print_path(paths, 0, 4);
     return 0;
 }
 
@@ -40,7 +41,7 @@ std::vector<std::pair<int, int>> dijkstra_lazy(const std::vector<std::vector<Edg
 //    the paths pair has this format: <least_cost, predecessor> and is indexed by nodes, so paths[0] pertains to node 0 and so on.
     std::vector<std::pair<int, int>> paths(graph.size(), {INT32_MAX, -1});
     std::priority_queue<Edge, std::vector<Edge>, Compare> pq;
-    pq.emplace(0, 0);
+    pq.emplace(start_node, 0);
     paths[start_node].first = 0;
     while (!pq.empty()) {
         const Edge curr_node = pq.top();
@@ -62,15 +63,16 @@ std::vector<std::pair<int, int>> dijkstra_lazy(const std::vector<std::vector<Edg
     return paths;
 }
 
-void print_path(const std::vector<std::pair<int, int>> &path, int dest) {
+void print_path(const std::vector<std::pair<int, int>> &path, int src, int dest) {
+    if (src == dest) {
+        std::cout << dest << ' ';
+    }
     if (path[dest].second == -1) {
         if (path[dest].first == INT32_MAX) {
             std::cout << "unreachable or infinite cost";
-        } else {
-            std::cout << path[dest].first << ' ';
         }
         return;
     }
-    print_path(path, path[dest].second);
+    print_path(path, src, path[dest].second);
     std::cout << dest << ' ';
 }
