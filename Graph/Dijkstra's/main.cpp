@@ -18,32 +18,27 @@ struct Compare {
 
 std::vector<std::pair<int, int>> dijkstra_lazy(const std::vector<std::vector<Edge>> &graph, int start_node);
 
-void print_path(const std::vector<std::pair<int, int>> &path, int dest) {
-    if (path[dest].second == -1)
-        return;
-    print_path(path, path[dest].second);
-    std::cout << path[dest].second;
-
-}
+void print_path(const std::vector<std::pair<int, int>> &path, int dest);
 
 int main() {
-    std::vector<std::vector<Edge>> graph(5);
+    std::vector<std::vector<Edge>> graph(6);
     graph[0].emplace_back(1, 4);
     graph[0].emplace_back(2, 1);
     graph[1].emplace_back(3, 1);
     graph[2].emplace_back(1, 2);
     graph[2].emplace_back(3, 5);
     graph[3].emplace_back(4, 3);
+    graph[4] = {};
+    graph[5].emplace_back(3, 1);
     std::vector<std::pair<int, int>> paths = dijkstra_lazy(graph, 0);
-    for (auto &i : paths)
-        std::cout << i.first << '\t' << i.second << std::endl;
-    print_path(paths, 4);
+    print_path(paths, 5);
     return 0;
 }
 
 std::vector<std::pair<int, int>> dijkstra_lazy(const std::vector<std::vector<Edge>> &graph, int start_node) {
     std::vector<bool> visited(graph.size(), false);
-    std::vector<std::pair<int, int>> paths(5, {INT32_MAX, -1});
+//    the paths pair has this format: <least_cost, predecessor> and is indexed by nodes, so paths[0] pertains to node 0 and so on.
+    std::vector<std::pair<int, int>> paths(graph.size(), {INT32_MAX, -1});
     std::priority_queue<Edge, std::vector<Edge>, Compare> pq;
     pq.emplace(0, 0);
     paths[start_node].first = 0;
@@ -65,4 +60,17 @@ std::vector<std::pair<int, int>> dijkstra_lazy(const std::vector<std::vector<Edg
         }
     }
     return paths;
+}
+
+void print_path(const std::vector<std::pair<int, int>> &path, int dest) {
+    if (path[dest].second == -1) {
+        if (path[dest].first == INT32_MAX) {
+            std::cout << "unreachable or infinite cost";
+        } else {
+            std::cout << path[dest].first << ' ';
+        }
+        return;
+    }
+    print_path(path, path[dest].second);
+    std::cout << dest << ' ';
 }
