@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-
+//currently works only over ASCII character set
 #define ALPHABET_COUNT 256
 #define SHIFT_INDEX(i, text_len) ((i) - (text_len) + 1)
 
