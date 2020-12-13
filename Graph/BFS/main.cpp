@@ -11,7 +11,7 @@ struct Edge {
     int32_t to;
 
     Edge(int32_t from, int32_t to) : from(from), to(to) {}
-    Edge(Edge &&E)  noexcept : from(E.from), to(E.to) {}
+//    Edge(Edge &&E)  noexcept : from(E.from), to(E.to) {}
 };
 
 std::vector<int32_t> bfs(const std::unordered_map<int32_t, std::vector<Edge>> &g, int32_t start, int32_t end);
