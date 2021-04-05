@@ -11,7 +11,7 @@
 #define IDX(c) ((c) - FIRST)
 
 //stealing frequency data from https://mitchellkember.com/blog/post/caesar-cipher/
-static constexpr std::array<double, ALPHABET_LENGTH> english_freqs[] = {
+static constexpr std::array<double, ALPHABET_LENGTH> english_freqs = {
         0.0804, 0.0148, 0.0334, 0.0382, 0.1249, 0.024, 0.0187, 0.0505, 0.0757, 0.0016,
         0.0054, 0.0407, 0.0251, 0.0723, 0.0764, 0.0214, 0.0012, 0.0628,
         0.0651, 0.0928, 0.0273, 0.0105, 0.0168, 0.0023, 0.0166, 0.0009
@@ -95,7 +95,7 @@ void sanitize(std::string &str) {
 double chi_sqr(std::array<double, ALPHABET_LENGTH> &obs) {
     double chi_sqr_res = 0;
     for (int i = 0; i < ALPHABET_LENGTH; ++i) {
-        chi_sqr_res += pow((obs.at(i) - english_freqs->at(i)), 2) / english_freqs->at(i);
+        chi_sqr_res += pow((obs[i] - english_freqs[i]), 2) / english_freqs[i];
     }
     return chi_sqr_res;
 }
