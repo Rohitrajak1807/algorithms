@@ -13,6 +13,8 @@
 #define FIRST 'a'
 // remaps ascii code of a...z from 97...123 to 0...25
 #define IDX(c) ((c)-FIRST)
+// undoes the mapping of IDX from a...z to 0..25, to actual ASCII values
+#define ASCII(c) ((c) + FIRST)
 
 // stealing frequency data from
 // https://mitchellkember.com/blog/post/caesar-cipher/
@@ -24,7 +26,7 @@ static constexpr std::array<double, ALPHABET_LENGTH> english_freqs = {
 // takes an input string and a shift value(aka key)
 std::string caesar_encipher(std::string_view, int32_t);
 
-char shift(const char &c, const int32_t& key);
+char shift(const char &c, const int32_t &key);
 
 // reverses the action of caesar_encipher on a string using the same shift value
 inline std::string caesar_decipher(std::string_view, int32_t);
