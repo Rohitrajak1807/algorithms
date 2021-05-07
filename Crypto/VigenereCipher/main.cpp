@@ -9,7 +9,13 @@ std::string vigenere_encipher(std::string_view message, std::string_view key);
 std::string vigenere_decipher(std::string_view message, std::string_view key);
 
 int main() {
-	std::string message = "nydz  me  l  hbzp  gz ffnywrse hmhn jdcz sd gz mgrczqf, yewar abr sr gsi ghatafgph dezxaqbww(rvnx, stpq, qxb, qxbg, kadupv, uexb, sxfdf, uana, wzlte, whmd, ppocd,  zbxf,  tad3,  dba3e,  vfac,  fgxte, cxed,  eqc,  gset, fxf, fmqe, dqfd, wyhcd, hrwrqh lrp gqxb)";
+	std::string message = "curl  is  a  tool  to  transfer data from or to a "
+	                      "server, using one of the supported protocols (dict, "
+	                      "file, ftp, ftps, gopher, http, https, imap, imaps, "
+	                      "ldap, ldaps, mqtt, pop3, pop3s, rtmp, rtmps, rtsp,"
+	                      " scp, sftp, smb, smbs, smtp, smtps, telnet and tftp)."
+	                      " the command is designed to work without user interaction.";
+//	we assume that key is only composed of lowercase alphabets
 	std::string key = "lemon";
 	std::string cipher_text = vigenere_encipher(message, key);
 	std::string deciphered = vigenere_decipher(cipher_text, key);
@@ -23,6 +29,9 @@ std::string vigenere_encipher(std::string_view message, std::string_view key) {
 	std::string cipher = std::string(message);
 	for (int32_t i = 0, non_char = 0; i < cipher.size(); ++i) {
 		if (!std::isalpha(cipher[i])) {
+			// we dont iterate over the key for non alphabetic values, so store
+			// the non character count in non_char and use it to balance the
+			// offset into the key
 			non_char++;
 			continue;
 		}
