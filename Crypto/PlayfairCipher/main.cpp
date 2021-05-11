@@ -1,6 +1,5 @@
 #include <iostream>
 #include <array>
-#include <cassert>
 #include <caesar_cipher.h>
 
 // the dimension of playfair cipher lookup table is a 5x5
