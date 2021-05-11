@@ -17,7 +17,6 @@ void fill_table(std::array<std::array<char, TABLE_DIM>, TABLE_DIM> &alphabet_tab
 
 std::array<size_t, ALPHABET_LENGTH> make_map(const std::array<std::array<char, TABLE_DIM>, TABLE_DIM> &used_chars);
 
-
 std::string form_digrams(const std::string &input);
 
 int main() {
@@ -84,26 +83,6 @@ std::string playfair_encipher(std::string_view message, std::string_view key) {
 	return output;
 }
 
-std::string form_digrams(const std::string &input) {
-	std::string new_str;
-	new_str.reserve(input.size() * 2);
-	for (size_t i = 0; i < input.size(); i += 2) {
-		const char &curr = input[i],
-				&next = (i + 1) >= input.size() ? '\0' : input[i + 1];
-		new_str.push_back(curr);
-		if (curr == next) {
-			new_str.push_back('x');
-		}
-		if (next != '\0')
-			new_str.push_back(next);
-	}
-	if (new_str.size() % 2 == 0) {
-		new_str[new_str.size()] = 'x';
-	}
-	new_str.resize(new_str.size());
-	return new_str;
-}
-
 std::string replace_all_j(std::string_view message) {
 	std::string new_str(message);
 	std::for_each(new_str.begin(), new_str.end(), [](char &c) {
@@ -144,4 +123,24 @@ std::array<size_t, ALPHABET_LENGTH> make_map(const std::array<std::array<char, T
 		}
 	}
 	return alphabet_map;
+}
+
+std::string form_digrams(const std::string &input) {
+	std::string new_str;
+	new_str.reserve(input.size() * 2);
+	for (size_t i = 0; i < input.size(); i += 2) {
+		const char &curr = input[i],
+				&next = (i + 1) >= input.size() ? '\0' : input[i + 1];
+		new_str.push_back(curr);
+		if (curr == next) {
+			new_str.push_back('x');
+		}
+		if (next != '\0')
+			new_str.push_back(next);
+	}
+	if (new_str.size() % 2 == 0) {
+		new_str[new_str.size()] = 'x';
+	}
+	new_str.resize(new_str.size());
+	return new_str;
 }
