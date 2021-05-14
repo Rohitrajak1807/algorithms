@@ -1,8 +1,6 @@
 #include <iostream>
 #include <vector>
 #include <string_view>
-#include <algorithm>
-#include <numeric>
 
 #define ALPHABET_COUNT 26
 #define FIRST 'a'
@@ -22,8 +20,9 @@ void inline index_to_ascii(std::string &str);
 int main() {
 	std::string message = "discovery";
 	std::vector<std::vector<int32_t>> key = {
-			{1, 3},
-			{4, 2}
+			{1, 3, 6},
+			{4, 2, 7},
+			{0, 10, 12},
 	};
 	std::string cipher = hill_encipher(message, key);
 	std::cout << cipher;
