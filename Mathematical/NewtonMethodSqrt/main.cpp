@@ -4,9 +4,9 @@
 double newton_sqrt(double n, double tolerance=0.0000001);
 
 int main() {
-	double n = 3472384729;
+	double n = 18446744073709551615.0;
 	double root = newton_sqrt(n);
-	std::cout << root << '\n' << std::sqrt(n);
+	std::cout << root << '\n' << std::sqrt(n) << '\n' << std::abs(root - std::sqrt(n));
 	return 0;
 }
 
