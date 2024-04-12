@@ -13,5 +13,3 @@ int main() {
     std::cout << deciphered_text << '\n';
     return 0;
 }
-
-
